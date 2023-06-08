@@ -1,9 +1,12 @@
+import entity.Prediction;
 import entity.ProductionData;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import static service.prediction.calculatePrediction;
 
 public class Main {
     public static void main(String[] args) {
@@ -106,50 +109,16 @@ public class Main {
         System.out.println();
         System.out.println();
         System.out.println("=============== PERSAMAAN REGRESI ===============");
-        calculate(12, x1, x2,
-                x1, x1x1, x1x2,
-                x2, x1x2, x2x2,
-                y, x1y, x2y);
+        Prediction prediction = calculatePrediction(12, x1, x2, y,
+                x1, x1x1, x1x2, x1y,
+                x2, x1x2, x2x2, x2y);
+
+        System.out.println("b1 = " + prediction.getB0());
+        System.out.println("b2 = " + prediction.getB1());
+        System.out.println("b0 = " + prediction.getB2());
     }
 
     public static String fixedLengthString(String string, int length) {
         return String.format("%1$"+length+"s", string);
-    }
-
-    private static void calculate(double b01, double b11, double b21,
-                                  double b02, double b12, double b22,
-                                  double b03, double b13, double b23,
-                                  double d1, double d2, double d3) {
-        double delta = cramer(
-                b01, b11, b21,
-                b02, b12, b22,
-                b03, b13, b23);
-
-        double x = cramer(
-                d1, b11, b21,
-                d2, b12, b22,
-                d3, b13, b23) / delta;
-
-        double y = cramer(
-                b01, d1, b21,
-                b02, d2, b22,
-                b03, d3, b23) / delta;
-
-        double z = cramer(
-                b01, b11, d1,
-                b02, b12, d2,
-                b03, b13, d3) / delta;
-
-        System.out.println("b1 = " + y);
-        System.out.println("b2 = " + z);
-        System.out.println("b0 = " + x);
-    }
-
-    private static double cramer(double a1, double b1, double c1,
-                                 double a2, double b2, double c2,
-                                 double a3, double b3, double c3) {
-        return (a1 * (b2*c3 - b3*c2))
-                - (a2 * (b1*c3 - b3*c1))
-                + (a3 * (b1*c2 - b2*c1));
     }
 }
