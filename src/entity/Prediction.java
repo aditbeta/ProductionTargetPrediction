@@ -8,6 +8,7 @@ import static service.helper.round;
 
 public class Prediction {
 
+    private Integer id;
     private Double totalX1;
     private Double totalX2;
     private Double totalY;
@@ -32,6 +33,25 @@ public class Prediction {
         this.totalX1Y = 0.0;
         this.totalX2Y = 0.0;
         this.totalX1X2 = 0.0;
+    }
+
+    public Prediction(Integer id, Double totalX1, Double totalX2, Double totalY,
+                      Double totalX1X1, Double totalX2X2, Double totalYY,
+                      Double totalX1Y, Double totalX2Y, Double totalX1X2,
+                      Double b0, Double b1, Double b2) {
+        this.id = id;
+        this.totalX1 = totalX1;
+        this.totalX2 = totalX2;
+        this.totalY = totalY;
+        this.totalX1X1 = totalX1X1;
+        this.totalX2X2 = totalX2X2;
+        this.totalYY = totalYY;
+        this.totalX1Y = totalX1Y;
+        this.totalX2Y = totalX2Y;
+        this.totalX1X2 = totalX1X2;
+        this.b0 = b0;
+        this.b1 = b1;
+        this.b2 = b2;
     }
 
     public Prediction calculateTotal(List<Production> productions) {
@@ -65,6 +85,14 @@ public class Prediction {
         this.totalX1X2 += production.getX1x2();
 
         return this;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Double getTotalX1() {

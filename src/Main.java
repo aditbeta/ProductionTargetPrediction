@@ -1,5 +1,6 @@
 import entity.Prediction;
 import entity.Production;
+import repository.PredictionRepository;
 import repository.ProductionObject;
 import repository.ProductionRepository;
 
@@ -35,11 +36,12 @@ public class Main {
         Prediction prediction = new Prediction();
         prediction.calculateTotal(productions);
         prediction.calculatePrediction();
+        PredictionRepository.insert(prediction);
 
         printInput(productions);
         printPrediction(productions);
-        printTotal(prediction);
-        printRegression(prediction);
+        printTotal(PredictionRepository.read());
+        printRegression(PredictionRepository.read());
     }
 
     public static String fixedLengthString(String string, int length) {

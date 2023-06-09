@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductionRepository extends Database {
+public class ProductionRepository extends BaseRepository {
 
     public static Production insert(ProductionObject production) throws SQLException {
         String sql = "INSERT INTO production VALUES(null,?,?,?,?)";
