@@ -40,10 +40,10 @@ public class ProductionRepository extends BaseRepository {
         return productions;
     }
 
-    public static void delete(int id) throws SQLException {
-        String sql = "DELETE FROM production WHERE id=?";
+    public static void delete(String month) throws SQLException {
+        String sql = "DELETE FROM production WHERE month=?";
         PreparedStatement preparedStmt = connect().prepareStatement(sql);
-        preparedStmt.setDouble (1, id);
+        preparedStmt.setString (1, month);
         preparedStmt.execute();
     }
 }
