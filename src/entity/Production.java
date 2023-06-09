@@ -2,12 +2,17 @@ package entity;
 
 import java.text.DecimalFormat;
 
-public class ProductionData {
+import static service.helper.round;
+
+public class Production {
 
     private String month;
     private Double sell;
     private Double order;
     private Double target;
+    private Double x1;
+    private Double x2;
+    private Double y;
     private Double x1x1;
     private Double x2x2;
     private Double yy;
@@ -15,27 +20,25 @@ public class ProductionData {
     private Double x2y;
     private Double x1x2;
     private DecimalFormat format = new DecimalFormat("###");
+    private Double divider = 10000.0;
+    private Double divider2 = divider*divider;
 
-    public ProductionData(String month, Double sell, Double order, Double target) {
+    public Production(String month, Double sell, Double order, Double target) {
         this.month = month;
         this.sell = sell;
         this.order = order;
         this.target = target;
 
-        sell = sell/10000;
-        order = order/10000;
-        target = target/10000;
+        this.x1 = round(sell/divider);
+        this.x2 = round(order/divider);
+        this.y = round(target/divider);
 
-        this.x1x1 = sell*sell;
-        this.x2x2 = order*order;
-        this.yy = target*target;
-        this.x1y = sell*target;
-        this.x2y = order*target;
-        this.x1x2 = sell*order;
-    }
-
-    public ProductionData createProductionData(String month, Double sell, Double order, Double target) {
-        return new ProductionData(month, sell, order, target);
+        this.x1x1 = sell*sell / divider2;
+        this.x2x2 = order*order / divider2;
+        this.yy = target*target / divider2;
+        this.x1y = sell*target / divider2;
+        this.x2y = order*target / divider2;
+        this.x1x2 = sell*order / divider2;
     }
 
     public String getMonth() {
@@ -68,6 +71,30 @@ public class ProductionData {
 
     public void setTarget(Double target) {
         this.target = target;
+    }
+
+    public Double getX1() {
+        return x1;
+    }
+
+    public void setX1(Double x1) {
+        this.x1 = x1;
+    }
+
+    public Double getX2() {
+        return x2;
+    }
+
+    public void setX2(Double x2) {
+        this.x2 = x2;
+    }
+
+    public Double getY() {
+        return y;
+    }
+
+    public void setY(Double y) {
+        this.y = y;
     }
 
     public Double getX1x1() {
@@ -134,7 +161,10 @@ public class ProductionData {
                 + fixedLengthString(format.format(target).toString(), 21);
     }
     public String toStringWithPrediction() {
-        return toString()
+        return fixedLengthString(month, 12)
+                + fixedLengthString(format.format(x1).toString(), 16)
+                + fixedLengthString(format.format(x2).toString(), 16)
+                + fixedLengthString(format.format(y).toString(), 21)
                 + fixedLengthString(format.format(x1x1).toString(), 20)
                 + fixedLengthString(format.format(x2x2).toString(), 20)
                 + fixedLengthString(format.format(yy).toString(), 20)
