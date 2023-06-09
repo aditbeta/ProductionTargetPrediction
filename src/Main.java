@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Prediksi Target Produksi");
 
-        List<Production> productionList = new ArrayList<>();
+        List<Production> productions = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
         while(true) {
@@ -19,7 +19,7 @@ public class Main {
                 break;
             }
             String[] inputData = input.split(",");
-            productionList.add(new Production(
+            productions.add(new Production(
                     inputData[0],
                     Double.parseDouble(inputData[1]),
                     Double.parseDouble(inputData[2]),
@@ -27,11 +27,11 @@ public class Main {
         }
 
         Prediction prediction = new Prediction();
-        prediction.calculateTotal(productionList);
+        prediction.calculateTotal(productions);
         prediction.calculatePrediction();
 
-        printInput(productionList);
-        printPrediction(productionList);
+        printInput(productions);
+        printPrediction(productions);
         printTotal(prediction);
         printRegression(prediction);
     }

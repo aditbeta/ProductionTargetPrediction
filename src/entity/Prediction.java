@@ -34,8 +34,8 @@ public class Prediction {
         this.totalX1X2 = 0.0;
     }
 
-    public Prediction calculateTotal(List<Production> list) {
-        for (Production data : list) {
+    public Prediction calculateTotal(List<Production> productions) {
+        for (Production data : productions) {
             this.incrementTotal(data);
         }
 
