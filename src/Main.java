@@ -1,16 +1,17 @@
 import entity.Prediction;
 import entity.Production;
+import repository.ProductionObject;
+import repository.ProductionRepository;
 
+import java.sql.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         System.out.println("Prediksi Target Produksi");
-
-        List<Production> productions = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
         while(true) {
@@ -19,12 +20,17 @@ public class Main {
                 break;
             }
             String[] inputData = input.split(",");
-            productions.add(new Production(
+
+            ProductionObject production = new ProductionObject(
                     inputData[0],
                     Double.parseDouble(inputData[1]),
                     Double.parseDouble(inputData[2]),
-                    Double.parseDouble(inputData[3])));
+                    Double.parseDouble(inputData[3]));
+
+            ProductionRepository.insert(production);
         }
+
+        List<Production> productions = ProductionRepository.readAll();
 
         Prediction prediction = new Prediction();
         prediction.calculateTotal(productions);
