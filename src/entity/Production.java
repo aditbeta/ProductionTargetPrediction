@@ -1,11 +1,13 @@
 package entity;
 
 import java.text.DecimalFormat;
+import repository.ProductionObject;
 
 import static service.helper.round;
 
 public class Production {
 
+    private Integer id;
     private String month;
     private Double sell;
     private Double order;
@@ -23,11 +25,12 @@ public class Production {
     private Double divider = 10000.0;
     private Double divider2 = divider*divider;
 
-    public Production(String month, Double sell, Double order, Double target) {
-        this.month = month;
-        this.sell = sell;
-        this.order = order;
-        this.target = target;
+    public Production(ProductionObject production) {
+        this.id = production.getId();
+        this.month = production.getMonth();
+        this.sell = production.getSell();
+        this.order = production.getOrder();
+        this.target = production.getTarget();
 
         this.x1 = round(sell/divider);
         this.x2 = round(order/divider);
@@ -39,6 +42,14 @@ public class Production {
         this.x1y = sell*target / divider2;
         this.x2y = order*target / divider2;
         this.x1x2 = sell*order / divider2;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getMonth() {
