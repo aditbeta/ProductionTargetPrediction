@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainFrame extends JFrame {
@@ -20,6 +21,8 @@ public class MainFrame extends JFrame {
     private JTable productionTable;
     private JButton deleteButton;
 
+    private List<Production> productions;
+
     public MainFrame() throws SQLException {
         setContentPane(mainPanel);
         setTitle("Production Input Form");
@@ -27,11 +30,13 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        recalculate();
+        productions = ProductionRepository.readAll();
 
+        recalculate();
         initTable();
+
         inputButton.addActionListener(e -> {
-            new ProductionInput();
+            new ProductionInput(productions);
             dispose();
         });
         calculateButton.addActionListener(e -> {
@@ -43,7 +48,7 @@ public class MainFrame extends JFrame {
             dispose();
         });
         deleteButton.addActionListener(e -> {
-            new DeleteInput();
+            new DeleteInput(productions);
             dispose();
         });
         resultButton.addActionListener(e -> {
@@ -57,8 +62,6 @@ public class MainFrame extends JFrame {
     }
 
     public void recalculate() throws SQLException {
-        List<Production> productions = ProductionRepository.readAll();
-
         Prediction prediction = new Prediction();
         prediction.calculateTotal(productions);
         prediction.calculatePrediction();
@@ -70,8 +73,7 @@ public class MainFrame extends JFrame {
         PredictionRepository.insert(prediction);
     }
 
-    public void initTable() throws SQLException {
-        List<Production> productions = ProductionRepository.readAll();
+    public void initTable() {
         productionTable.setModel(new ProductionTableModel(productions));
         productionTable.setAutoCreateRowSorter(true);
     }
