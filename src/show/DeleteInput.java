@@ -3,6 +3,8 @@ package show;
 import repository.ProductionRepository;
 
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
 public class DeleteInput extends JFrame {
@@ -15,9 +17,18 @@ public class DeleteInput extends JFrame {
         setContentPane(deletePanel);
         setTitle("Delete Production Input by Month");
         setSize(450,300);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                try {
+                    new MainFrame();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
 
         monthDeleteButton.addActionListener(e -> {
             try {

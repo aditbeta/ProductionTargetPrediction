@@ -164,27 +164,7 @@ public class Production {
         this.format = format;
     }
 
-    @Override
-    public String toString() {
-        return fixedLengthString(month, 12)
-                + fixedLengthString(format.format(sell).toString(), 16)
-                + fixedLengthString(format.format(order).toString(), 16)
-                + fixedLengthString(format.format(target).toString(), 21);
-    }
-    public String toStringWithPrediction() {
-        return fixedLengthString(month, 12)
-                + fixedLengthString(format.format(x1).toString(), 16)
-                + fixedLengthString(format.format(x2).toString(), 16)
-                + fixedLengthString(format.format(y).toString(), 21)
-                + fixedLengthString(format.format(x1x1).toString(), 20)
-                + fixedLengthString(format.format(x2x2).toString(), 20)
-                + fixedLengthString(format.format(yy).toString(), 20)
-                + fixedLengthString(format.format(x1y).toString(), 20)
-                + fixedLengthString(format.format(x2y).toString(), 20)
-                + fixedLengthString(format.format(x1x2).toString(), 20);
-    }
-
-    public static String fixedLengthString(String string, int length) {
-        return String.format("%1$"+length+"s", string);
+    public Double getRegressionResult(Prediction prediction) {
+        return prediction.getB0() + (prediction.getB1() * x1) + (prediction.getB2() * x2);
     }
 }

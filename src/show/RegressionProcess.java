@@ -10,6 +10,8 @@ import show.table.RegressionTableModel;
 import show.table.TotalTableModel;
 
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -28,9 +30,18 @@ public class RegressionProcess extends JFrame {
         setContentPane(regressionProcessPanel);
         setTitle("Regression Calculation");
         setSize(1000,800);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                try {
+                    new MainFrame();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
 
         initTable();
     }

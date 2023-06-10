@@ -14,9 +14,9 @@ public class RegressionTableModel extends AbstractTableModel {
     private List<TotalTableObject> objects = new ArrayList<>();
 
     public RegressionTableModel(Prediction prediction) {
-        this.objects.add(new TotalTableObject("b0", prediction.getB0()));
-        this.objects.add(new TotalTableObject("b1", prediction.getB1()));
-        this.objects.add(new TotalTableObject("b2", prediction.getB2()));
+        this.objects.add(new TotalTableObject("b0", prediction.getB0Show()));
+        this.objects.add(new TotalTableObject("b1", prediction.getB1Show()));
+        this.objects.add(new TotalTableObject("b2", prediction.getB2Show()));
     }
 
     @Override

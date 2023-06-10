@@ -14,14 +14,6 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        System.out.println("Prediksi Target Produksi");
         new MainFrame();
-
-        List<Production> productions = ProductionRepository.readAll();
-
-        Prediction prediction = new Prediction();
-        prediction.calculateTotal(productions);
-        prediction.calculatePrediction();
-        PredictionRepository.insert(prediction);
     }
 }

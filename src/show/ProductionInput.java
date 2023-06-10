@@ -6,6 +6,8 @@ import repository.ProductionRepository;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
 public class ProductionInput extends JFrame {
@@ -24,9 +26,18 @@ public class ProductionInput extends JFrame {
         setContentPane(productionInputPanel);
         setTitle("Production Input Form");
         setSize(450,300);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                try {
+                    new MainFrame();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
 
         submitButton.addActionListener(new ActionListener() {
             @Override

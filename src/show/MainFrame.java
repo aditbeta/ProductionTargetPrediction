@@ -7,6 +7,8 @@ import repository.ProductionRepository;
 import show.table.ProductionTableModel;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -38,9 +40,18 @@ public class MainFrame extends JFrame {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
+            dispose();
         });
         deleteButton.addActionListener(e -> {
             new DeleteInput();
+            dispose();
+        });
+        resultButton.addActionListener(e -> {
+            try {
+                new RegressionResult();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             dispose();
         });
     }
@@ -51,6 +62,11 @@ public class MainFrame extends JFrame {
         Prediction prediction = new Prediction();
         prediction.calculateTotal(productions);
         prediction.calculatePrediction();
+
+        if (PredictionRepository.read() != null) {
+            PredictionRepository.update(prediction);
+            return;
+        }
         PredictionRepository.insert(prediction);
     }
 
