@@ -190,4 +190,20 @@ public class Prediction {
     public void setB2(Double b2) {
         this.b2 = b2;
     }
+
+    public Double getB0Show() {
+        return formatShow(b0);
+    }
+
+    public Double getB1Show() {
+        return formatShow(b1);
+    }
+
+    public Double getB2Show() {
+        return formatShow(b2);
+    }
+
+    private static double formatShow(double n) {
+        return round(n*10000)/10000;
+    }
 }

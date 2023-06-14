@@ -7,6 +7,7 @@ public class ProductionObject {
     private Double sell;
     private Double order;
     private Double target;
+    private Integer monthNum;
 
     public ProductionObject(String month, Double sell, Double order, Double target) {
         this.month = month;

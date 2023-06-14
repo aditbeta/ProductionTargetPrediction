@@ -24,19 +24,19 @@ public class helper {
                 a2, b2, c2,
                 a3, b3, c3);
 
-        double x = reformatPrediction(solveUseCramer(
+        double x = formatCount(solveUseCramer(
                 d1, b1, c1,
                 d2, b2, c2,
                 d3, b3, c3) / delta);
         prediction.setB0(x);
 
-        double y = reformatPrediction(solveUseCramer(
+        double y = formatCount(solveUseCramer(
                 a1, d1, c1,
                 a2, d2, c2,
                 a3, d3, c3) / delta);
         prediction.setB1(y);
 
-        double z = reformatPrediction(solveUseCramer(
+        double z = formatCount(solveUseCramer(
                 a1, b1, d1,
                 a2, b2, d2,
                 a3, b3, d3) / delta);
@@ -53,8 +53,17 @@ public class helper {
                 + (a3 * (b1*c2 - b2*c1));
     }
 
-    private static double reformatPrediction(double n) {
+    private static double formatShow(double n) {
         return round(n*ROUNDER)/ROUNDER;
+    }
+
+    private static double formatCount(double n) {
+        return round(n*1000000000)/1000000000;
+    }
+
+    private static double nPrecision(double v, int precision) {
+        int divider = (int) Math.pow(10, precision);
+        return round(v*divider)/divider;
     }
 
 }
