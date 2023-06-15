@@ -93,7 +93,7 @@ public class MainFrame extends JFrame {
         });
         resultButton.addActionListener(e -> {
             try {
-                new RegressionResult();
+                new PredictionResult();
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
