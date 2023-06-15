@@ -106,8 +106,4 @@ public class MainFrame extends JFrame {
         Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);
         return new ImageIcon(resizedImage);
     }
-
-    public static void main(String[] args) throws SQLException {
-        new MainFrame();
-    }
 }
