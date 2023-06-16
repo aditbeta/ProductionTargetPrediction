@@ -7,7 +7,8 @@ import java.sql.SQLException;
 public class BaseRepository {
 
     public static Connection connect() {
-        String url = "jdbc:mysql://localhost:3306/predictor";
+        String database = "predictor";
+        String url = "jdbc:mysql://localhost:3306/" + database;
         String username = "root";
         String password = "password";
 
