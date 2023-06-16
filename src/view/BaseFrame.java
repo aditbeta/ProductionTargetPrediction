@@ -34,8 +34,7 @@ public class BaseFrame extends JFrame {
 
         table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
-            {
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (isSelected) {
                     c.setBackground(BLACK);
@@ -44,6 +43,7 @@ public class BaseFrame extends JFrame {
                     c.setBackground(row % 2 == 0 ? LIGHT_GRAY : WHITE);
                     c.setForeground(BLACK);
                 }
+
                 return c;
             }
         });

@@ -9,9 +9,9 @@ import java.util.List;
 
 public class RegressionTableModel extends AbstractTableModel {
 
-    private final DecimalFormat format = new DecimalFormat("###.#####");
+    private final DecimalFormat format = new DecimalFormat("###,###.#####");
     private final String[] COLUMN_NAMES = {"Name", "Value"};
-    private List<TotalTableObject> objects = new ArrayList<>();
+    private final List<TotalTableObject> objects = new ArrayList<>();
 
     public RegressionTableModel(Prediction prediction) {
         this.objects.add(new TotalTableObject("b0", prediction.getB0Show()));
@@ -36,11 +36,11 @@ public class RegressionTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        switch(columnIndex) {
-            case 0: return objects.get(rowIndex).getName();
-            case 1: return format.format(objects.get(rowIndex).getValue());
-            default: return  "-";
-        }
+        return switch (columnIndex) {
+            case 0 -> objects.get(rowIndex).getName();
+            case 1 -> format.format(objects.get(rowIndex).getValue());
+            default -> "-";
+        };
     }
 }
 

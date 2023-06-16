@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ProductionTableModel extends AbstractTableModel {
 
-    private final DecimalFormat format = new DecimalFormat("###");
+    private final DecimalFormat format = new DecimalFormat("###,###");
     private final String[] COLUMN_NAMES = {"Month", "Planning Production", "Actual Production", "Actual Sales"};
     private List<Production> productions;
 

@@ -48,7 +48,7 @@ public class PredictionFrame extends BaseFrame {
         List<Production> productions = ProductionRepository.readAll();
         Prediction prediction = PredictionRepository.read();
 
-        predictionResultTable.setModel(new RegressionResultTable(productions, prediction));
+        predictionResultTable.setModel(new PredictionResultTable(productions, prediction));
         predictionResultTable.setAutoCreateRowSorter(true);
     }
 
