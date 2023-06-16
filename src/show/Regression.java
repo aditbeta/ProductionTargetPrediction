@@ -43,6 +43,24 @@ public class Regression extends BaseFrame {
         initTable();
     }
 
+    private void initTable() throws SQLException {
+        List<Production> productions = ProductionRepository.readAll();
+
+        productionTable.setModel(new ProductionTableModel(productions));
+        productionTable.setAutoCreateRowSorter(true);
+
+        predictionTable.setModel(new PredictionTableModel(productions));
+        predictionTable.setAutoCreateRowSorter(true);
+
+        Prediction prediction = PredictionRepository.read();
+
+        totalTable.setModel(new TotalTableModel(prediction));
+        totalTable.setAutoCreateRowSorter(true);
+
+        regressionTable.setModel(new RegressionTableModel(prediction));
+        regressionTable.setAutoCreateRowSorter(true);
+    }
+
     private void setStyle() {
         setLabelPadding(titleLabel);
 
@@ -69,23 +87,5 @@ public class Regression extends BaseFrame {
         backButton.addActionListener(e -> {
             backToMain();
         });
-    }
-
-    public void initTable() throws SQLException {
-        List<Production> productions = ProductionRepository.readAll();
-
-        productionTable.setModel(new ProductionTableModel(productions));
-        productionTable.setAutoCreateRowSorter(true);
-
-        predictionTable.setModel(new PredictionTableModel(productions));
-        predictionTable.setAutoCreateRowSorter(true);
-
-        Prediction prediction = PredictionRepository.read();
-
-        totalTable.setModel(new TotalTableModel(prediction));
-        totalTable.setAutoCreateRowSorter(true);
-
-        regressionTable.setModel(new RegressionTableModel(prediction));
-        regressionTable.setAutoCreateRowSorter(true);
     }
 }

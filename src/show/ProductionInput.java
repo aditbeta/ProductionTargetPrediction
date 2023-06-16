@@ -22,16 +22,14 @@ public class ProductionInput extends BaseFrame {
     private JTextField targetField;
     private JComboBox monthField;
     private JButton submitButton;
-    private JButton cancelButton;
+    private JButton backButton;
 
     private List<Production> productions;
 
     public ProductionInput(List<Production> productionList) {
-        setStyle();
         setActionListener();
-
         setData(productionList);
-
+        setStyle();
         setPanel(productionInputPanel, "Production Data Form", 350, 400);
     }
 
@@ -69,7 +67,7 @@ public class ProductionInput extends BaseFrame {
 
             backToMain();
         });
-        cancelButton.addActionListener(e -> {
+        backButton.addActionListener(e -> {
             backToMain();
         });
     }

@@ -15,16 +15,14 @@ public class DeleteInput extends BaseFrame {
     private JTextField monthDeleteField;
     private JButton deleteButton;
     private JComboBox monthDropdown;
-    private JButton cancelButton;
+    private JButton backButton;
 
     private List<Production> productions;
 
     public DeleteInput(List<Production> productionList) {
-        setStyle();
         setActionListener();
-
         setData(productionList);
-
+        setStyle();
         setPanel(deletePanel, "Delete Production Input by Month", 300, 150);
     }
 
@@ -53,7 +51,7 @@ public class DeleteInput extends BaseFrame {
             }
             backToMain();
         });
-        cancelButton.addActionListener(e -> {
+        backButton.addActionListener(e -> {
             backToMain();
         });
     }

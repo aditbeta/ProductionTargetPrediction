@@ -8,25 +8,22 @@ import show.table.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
 
 public class PredictionResult extends BaseFrame {
 
-    private JScrollPane predictionResultPane;
+    private JPanel predictionResultPanel;
     private JLabel titleLabel;
     private JTextField equationResult;
-    private JPanel predictionResultPanel;
+    private JScrollPane predictionResultPane;
     private JTable predictionResultTable;
     private JButton backButton;
 
     public PredictionResult() throws SQLException {
-        setStyle();
         setActionListener();
-
         setData();
-
+        setStyle();
         setPanel(predictionResultPanel, "Prediction Result", 700, 300);
     }
 
@@ -43,7 +40,7 @@ public class PredictionResult extends BaseFrame {
                 prediction.getB0(), prediction.getB1(), prediction.getB2()));
     }
 
-    public void initTable() throws SQLException {
+    private void initTable() throws SQLException {
         List<Production> productions = ProductionRepository.readAll();
         Prediction prediction = PredictionRepository.read();
 

@@ -14,35 +14,26 @@ import java.util.List;
 import java.util.Objects;
 
 public class MainFrame extends BaseFrame {
+
+    private JPanel mainPanel;
+    private JLabel titleLabel;
+    private JButton closeButton;
     private JButton inputButton;
     private JButton calculateButton;
     private JButton resultButton;
-    private JPanel mainPanel;
     private JTable productionTable;
     private JButton deleteButton;
-    private JButton xButton;
-    private JLabel titleLabel;
 
     private List<Production> productions;
 
     public MainFrame() throws SQLException {
-        setUndecorated(true);
-        setContentPane(mainPanel);
-        setTitle("Production Input Form");
-        setSize(700,500);
-        setLocationRelativeTo(null);
-        setVisible(true);
+        setActionListener();
+        setData();
+        setPanel(mainPanel, "Main", 700, 500);
+        setStyle();
+    }
 
-        ImageIcon logo = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("icon/logo.png")));
-        titleLabel.setIcon(resizeIcon(logo, getWidth() - 250, 100));
-        buttonListener();
-
-        ImageIcon icon = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("icon/close.png")));
-        xButton.setIcon(resizeIcon(icon, xButton.getWidth(), xButton.getHeight()));
-        xButton.setOpaque(false);
-        xButton.setContentAreaFilled(false);
-        xButton.setBorderPainted(false);
-
+    private void setData() throws SQLException {
         productions = ProductionRepository.readAll();
 
         if (productions != null && productions.size() > 0) {
@@ -51,7 +42,7 @@ public class MainFrame extends BaseFrame {
         initTable();
     }
 
-    public void recalculate() throws SQLException {
+    private void recalculate() throws SQLException {
         Prediction prediction = new Prediction();
         prediction.calculateTotal(productions);
         prediction.calculatePrediction();
@@ -63,7 +54,7 @@ public class MainFrame extends BaseFrame {
         PredictionRepository.insert(prediction);
     }
 
-    public void initTable() {
+    private void initTable() {
         if (productions != null && productions.size() > 0) {
             productionTable.setModel(new ProductionTableModel(productions));
             productionTable.setAutoCreateRowSorter(true);
@@ -74,10 +65,25 @@ public class MainFrame extends BaseFrame {
         setTableStyle(productionTable);
     }
 
-    public void buttonListener() {
-        xButton.addActionListener(e -> {
-            dispose();
-        });
+    private void setStyle() {
+        ImageIcon logo = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("icon/logo.png")));
+        titleLabel.setIcon(resizeIcon(logo, getWidth() - 250, 100));
+
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("icon/close.png")));
+        closeButton.setIcon(resizeIcon(icon, closeButton.getWidth(), closeButton.getHeight()));
+        closeButton.setOpaque(false);
+        closeButton.setContentAreaFilled(false);
+        closeButton.setBorderPainted(false);
+    }
+
+    private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {
+        Image img = icon.getImage();
+        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);
+        return new ImageIcon(resizedImage);
+    }
+
+    private void setActionListener() {
+        closeButton.addActionListener(e -> System.exit(0));
         inputButton.addActionListener(e -> {
             new ProductionInput(productions);
             dispose();
@@ -102,11 +108,5 @@ public class MainFrame extends BaseFrame {
             }
             dispose();
         });
-    }
-
-    private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {
-        Image img = icon.getImage();
-        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);
-        return new ImageIcon(resizedImage);
     }
 }
