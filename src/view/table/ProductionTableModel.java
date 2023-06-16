@@ -1,4 +1,4 @@
-package show.table;
+package view.table;
 
 import entity.Production;
 
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ProductionTableModel extends AbstractTableModel {
 
-    private final DecimalFormat format = new DecimalFormat("###");
+    private final DecimalFormat format = new DecimalFormat("###,###");
     private final String[] COLUMN_NAMES = {"Month", "Planning Production", "Actual Production", "Actual Sales"};
     private List<Production> productions;
 
@@ -40,5 +40,10 @@ public class ProductionTableModel extends AbstractTableModel {
             case 3: return format.format(productions.get(rowIndex).getOrder());
             default: return "-";
         }
+    }
+
+    @Override
+    public Class getColumnClass(int columnIndex) {
+        return (columnIndex == 0) ? String.class : Integer.class;
     }
 }

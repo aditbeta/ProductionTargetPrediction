@@ -11,17 +11,17 @@ import java.util.List;
 
 public class ProductionRepository extends BaseRepository {
 
-    public static Production insert(ProductionObject production) throws SQLException {
+    public static void insert(ProductionObject production) throws SQLException {
         String sql = "INSERT INTO production VALUES(null,?,?,?,?,?)";
-        PreparedStatement preparedStmt = connect().prepareStatement(sql);
-        preparedStmt.setString (1, production.getMonth());
-        preparedStmt.setDouble (2, production.getSell());
-        preparedStmt.setDouble (3, production.getOrder());
-        preparedStmt.setDouble (4, production.getTarget());
-        preparedStmt.setDouble (5, monthNum(production.getMonth()));
-        preparedStmt.execute();
+        PreparedStatement statement = connect().prepareStatement(sql);
+        statement.setString (1, production.getMonth());
+        statement.setDouble (2, production.getSell());
+        statement.setDouble (3, production.getOrder());
+        statement.setDouble (4, production.getTarget());
+        statement.setDouble (5, monthNum(production.getMonth()));
+        statement.execute();
 
-        return new Production(production);
+        new Production(production);
     }
 
     public static List<Production> readAll() throws SQLException {

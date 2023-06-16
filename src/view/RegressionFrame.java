@@ -1,24 +1,18 @@
-package show;
+package view;
 
 import entity.Prediction;
 import entity.Production;
 import repository.PredictionRepository;
 import repository.ProductionRepository;
-import show.table.PredictionTableModel;
-import show.table.ProductionTableModel;
-import show.table.RegressionTableModel;
-import show.table.TotalTableModel;
+import view.table.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.List;
 
-public class Regression extends BaseFrame {
+public class RegressionFrame extends BaseFrame {
 
     private JPanel regressionPanel;
     private JLabel titleLabel;
@@ -32,27 +26,33 @@ public class Regression extends BaseFrame {
     private JTable regressionTable;
     private JButton backButton;
 
-    public Regression() throws SQLException {
+    public RegressionFrame() {
         setActionListener();
         setData();
         setStyle();
         setPanel(regressionPanel, "Regression Calculation", 1000, 800);
     }
 
-    private void setData() throws SQLException {
-        initTable();
+    private void setData() {
+        try {
+            initTable();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     private void initTable() throws SQLException {
         List<Production> productions = ProductionRepository.readAll();
 
-        productionTable.setModel(new ProductionTableModel(productions));
-        productionTable.setAutoCreateRowSorter(true);
+        productionTable = createTable(new ProductionTableModel(productions));
+        productionScrollPane.getViewport().add(productionTable);
 
-        predictionTable.setModel(new PredictionTableModel(productions));
-        predictionTable.setAutoCreateRowSorter(true);
+        predictionTable = createTable(new PredictionTableModel(productions));
+        predictionScrollPane.getViewport().add(predictionTable);
 
         Prediction prediction = PredictionRepository.read();
+
+        assert prediction != null;
 
         totalTable.setModel(new TotalTableModel(prediction));
         totalTable.setAutoCreateRowSorter(true);
@@ -77,8 +77,8 @@ public class Regression extends BaseFrame {
         table.setRowHeight(30);
 
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-        renderer.setBackground(new Color(232, 57, 95));
-        renderer.setForeground(new Color(255, 255, 255));
+        renderer.setBackground(RED);
+        renderer.setForeground(Color.WHITE);
 
         table.getColumnModel().getColumn(0).setCellRenderer(renderer);
     }

@@ -7,7 +7,6 @@ public class ProductionObject {
     private Double sell;
     private Double order;
     private Double target;
-    private Integer monthNum;
 
     public ProductionObject(String month, Double sell, Double order, Double target) {
         this.month = month;
@@ -36,31 +35,16 @@ public class ProductionObject {
         return month;
     }
 
-    public void setMonth(String month) {
-        this.month = month;
-    }
 
     public Double getSell() {
         return sell;
-    }
-
-    public void setSell(Double sell) {
-        this.sell = sell;
     }
 
     public Double getOrder() {
         return order;
     }
 
-    public void setOrder(Double order) {
-        this.order = order;
-    }
-
     public Double getTarget() {
         return target;
-    }
-
-    public void setTarget(Double target) {
-        this.target = target;
     }
 }

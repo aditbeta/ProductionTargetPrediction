@@ -10,24 +10,17 @@ public class PredictionRepository extends BaseRepository {
 
     public static void insert(Prediction prediction) throws SQLException {
         String sql = "INSERT INTO prediction VALUES(null,?,?,?,?,?,?,?,?,?,?,?,?)";
-        PreparedStatement statement = connect().prepareStatement(sql);
-        statement.setDouble (1, prediction.getTotalX1());
-        statement.setDouble (2, prediction.getTotalX2());
-        statement.setDouble (3, prediction.getTotalY());
-        statement.setDouble (4, prediction.getTotalX1X1());
-        statement.setDouble (5, prediction.getTotalX2X2());
-        statement.setDouble (6, prediction.getTotalYY());
-        statement.setDouble (7, prediction.getTotalX1Y());
-        statement.setDouble (8, prediction.getTotalX2Y());
-        statement.setDouble (9, prediction.getTotalX1X2());
-        statement.setDouble (10, prediction.getB0());
-        statement.setDouble (11, prediction.getB1());
-        statement.setDouble (12, prediction.getB2());
-        prediction.setId(statement.executeUpdate());
+
+        prediction.setId(statement(sql, prediction).executeUpdate());
     }
 
     public static void update(Prediction prediction) throws SQLException {
         String sql = "UPDATE prediction SET totalX1 = ?, totalX2 = ?, totalY = ?, totalX1X1 = ?, totalX2X2 = ?, totalYY = ?, totalX1Y = ?, totalX2Y = ?, totalX1X2 = ?, b0 = ?, b1 = ?, b2 = ?";
+
+        prediction.setId(statement(sql, prediction).executeUpdate());
+    }
+
+    private static PreparedStatement statement(String sql, Prediction prediction) throws SQLException {
         PreparedStatement statement = connect().prepareStatement(sql);
         statement.setDouble (1, prediction.getTotalX1());
         statement.setDouble (2, prediction.getTotalX2());
@@ -41,7 +34,8 @@ public class PredictionRepository extends BaseRepository {
         statement.setDouble (10, prediction.getB0());
         statement.setDouble (11, prediction.getB1());
         statement.setDouble (12, prediction.getB2());
-        prediction.setId(statement.executeUpdate());
+
+        return statement;
     }
 
     public static Prediction read() throws SQLException {

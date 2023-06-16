@@ -1,4 +1,4 @@
-package show;
+package view;
 
 import entity.Production;
 import repository.ProductionRepository;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeleteInput extends BaseFrame {
+public class DeleteFrame extends BaseFrame {
     private JPanel deletePanel;
     private JLabel titleLabel;
     private JTextField monthDeleteField;
@@ -19,7 +19,7 @@ public class DeleteInput extends BaseFrame {
 
     private List<Production> productions;
 
-    public DeleteInput(List<Production> productionList) {
+    public DeleteFrame(List<Production> productionList) {
         setActionListener();
         setData(productionList);
         setStyle();

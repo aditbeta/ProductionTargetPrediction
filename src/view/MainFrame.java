@@ -1,10 +1,11 @@
-package show;
+package view;
 
 import entity.Prediction;
 import entity.Production;
+import org.apache.commons.collections4.CollectionUtils;
 import repository.PredictionRepository;
 import repository.ProductionRepository;
-import show.table.ProductionTableModel;
+import view.table.ProductionTableModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +22,7 @@ public class MainFrame extends BaseFrame {
     private JButton inputButton;
     private JButton calculateButton;
     private JButton resultButton;
+    private JScrollPane productionScrollPane;
     private JTable productionTable;
     private JButton deleteButton;
 
@@ -36,16 +38,18 @@ public class MainFrame extends BaseFrame {
     private void setData() throws SQLException {
         productions = ProductionRepository.readAll();
 
-        if (productions != null && productions.size() > 0) {
+        if (!CollectionUtils.isEmpty(productions)) {
             recalculate();
+            initTable();
+        } else {
+            productionTable.setModel(new ProductionTableModel(new ArrayList<>()));
         }
-        initTable();
     }
 
     private void recalculate() throws SQLException {
         Prediction prediction = new Prediction();
-        prediction.calculateTotal(productions);
-        prediction.calculatePrediction();
+        prediction.setTotal(productions);
+        prediction.setPrediction(productions);
 
         if (PredictionRepository.read() != null) {
             PredictionRepository.update(prediction);
@@ -55,58 +59,67 @@ public class MainFrame extends BaseFrame {
     }
 
     private void initTable() {
-        if (productions != null && productions.size() > 0) {
-            productionTable.setModel(new ProductionTableModel(productions));
-            productionTable.setAutoCreateRowSorter(true);
-        } else {
-            productionTable.setModel(new ProductionTableModel(new ArrayList<>()));
-        }
-
-        setTableStyle(productionTable);
+        productionTable = createTable(new ProductionTableModel(productions));
+        productionScrollPane.getViewport().add(productionTable);
     }
 
     private void setStyle() {
         ImageIcon logo = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("icon/logo.png")));
-        titleLabel.setIcon(resizeIcon(logo, getWidth() - 250, 100));
+        titleLabel.setIcon(resizeIcon(logo, getWidth() - 250, 105));
 
         ImageIcon icon = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("icon/close.png")));
         closeButton.setIcon(resizeIcon(icon, closeButton.getWidth(), closeButton.getHeight()));
         closeButton.setOpaque(false);
         closeButton.setContentAreaFilled(false);
         closeButton.setBorderPainted(false);
+
+        setTableStyle(productionTable);
     }
 
     private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {
         Image img = icon.getImage();
         Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);
+
         return new ImageIcon(resizedImage);
     }
 
     private void setActionListener() {
         closeButton.addActionListener(e -> System.exit(0));
         inputButton.addActionListener(e -> {
-            new ProductionInput(productions);
-            dispose();
+            if (productions.size() < 12) {
+                new InputFrame(productions);
+                dispose();
+            } else {
+                popupMessage("Production data for all available months has been inputted.");
+            }
         });
         calculateButton.addActionListener(e -> {
-            try {
-                new Regression();
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+            if (valid()) {
+                new RegressionFrame();
+                dispose();
             }
-            dispose();
-        });
-        deleteButton.addActionListener(e -> {
-            new DeleteInput(productions);
-            dispose();
         });
         resultButton.addActionListener(e -> {
-            try {
-                new PredictionResult();
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+            if (valid()) {
+                new PredictionFrame();
+                dispose();
             }
-            dispose();
         });
+        deleteButton.addActionListener(e -> {
+            if (valid()) {
+                new DeleteFrame(productions);
+                dispose();
+            }
+        });
+    }
+
+    private boolean valid() {
+        if (CollectionUtils.isEmpty(productions)) {
+            popupMessage("Please input production data first.");
+
+            return false;
+        }
+
+        return true;
     }
 }
