@@ -27,7 +27,6 @@ public class MainFrame extends BaseFrame {
 
     public MainFrame() throws SQLException {
         setUndecorated(true);
-        setBackground(new Color(251, 250, 251));
         setContentPane(mainPanel);
         setTitle("Production Input Form");
         setSize(700,500);
@@ -85,7 +84,7 @@ public class MainFrame extends BaseFrame {
         });
         calculateButton.addActionListener(e -> {
             try {
-                new RegressionProcess();
+                new Regression();
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }

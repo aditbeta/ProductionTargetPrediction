@@ -1,6 +1,7 @@
 package show;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.sql.SQLException;
 
@@ -21,6 +22,11 @@ public class BaseFrame extends JFrame {
         table.getTableHeader().setBackground(new Color(32, 136, 203));
         table.getTableHeader().setForeground(new Color(255, 255, 255));
         table.setRowHeight(30);
+        table.setShowVerticalLines(false);
+    }
+
+    public void setLabelPadding(JLabel label) {
+        label.setBorder(new EmptyBorder(0,0,20,0));
     }
 
     public void backToMain() {
