@@ -37,10 +37,14 @@ public class MainFrame extends BaseFrame {
     private void setData() throws SQLException {
         productions = ProductionRepository.readAll();
 
-        if (productions != null && productions.size() > 0) {
+        if (!CollectionUtils.isEmpty(productions)) {
             recalculate();
+            initTable();
+        } else {
+            productionTable.setModel(new ProductionTableModel(new ArrayList<>()));
         }
-        initTable();
+
+        setTableStyle(productionTable);
     }
 
     private void recalculate() throws SQLException {
@@ -56,14 +60,8 @@ public class MainFrame extends BaseFrame {
     }
 
     private void initTable() {
-        if (productions != null && productions.size() > 0) {
-            productionTable.setModel(new ProductionTableModel(productions));
-            productionTable.setAutoCreateRowSorter(true);
-        } else {
-            productionTable.setModel(new ProductionTableModel(new ArrayList<>()));
-        }
-
-        setTableStyle(productionTable);
+        productionTable.setModel(new ProductionTableModel(productions));
+        productionTable.setAutoCreateRowSorter(true);
     }
 
     private void setStyle() {

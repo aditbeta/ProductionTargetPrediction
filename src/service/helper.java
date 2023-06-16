@@ -7,7 +7,11 @@ public class helper {
     private static final Integer ROUNDER = 10000;
 
     public static double round(double n) {
-        int rem = Integer.parseInt(String.valueOf(n).split("\\.")[1].split("")[0]);
+        String[] splitter = String.valueOf(n).split("\\.");
+        if (splitter.length <= 1) {
+            return 0;
+        }
+        int rem = Integer.parseInt(splitter[1].split("")[0]);
         boolean isNegative = n < 0;
 
         n = (rem >= 5) ? Math.ceil(Math.abs(n)) : Math.floor(Math.abs(n));
