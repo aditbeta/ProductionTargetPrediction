@@ -46,4 +46,9 @@ public class PredictionResultTable extends AbstractTableModel {
             default -> "-";
         };
     }
+
+    @Override
+    public Class getColumnClass(int columnIndex) {
+        return (columnIndex == 0) ? String.class : Integer.class;
+    }
 }

@@ -67,6 +67,8 @@
             <constraints/>
             <properties>
               <background color="-460552"/>
+              <selectionBackground color="-14803416"/>
+              <selectionForeground color="-460552"/>
             </properties>
           </component>
         </children>
@@ -91,6 +93,8 @@
             <constraints/>
             <properties>
               <background color="-460552"/>
+              <selectionBackground color="-14803416"/>
+              <selectionForeground color="-460552"/>
             </properties>
           </component>
         </children>

@@ -48,8 +48,8 @@ public class PredictionFrame extends BaseFrame {
         List<Production> productions = ProductionRepository.readAll();
         Prediction prediction = PredictionRepository.read();
 
-        predictionResultTable.setModel(new PredictionResultTable(productions, prediction));
-        predictionResultTable.setAutoCreateRowSorter(true);
+        predictionResultTable = createTable(new PredictionResultTable(productions, prediction));
+        predictionResultPane.getViewport().add(predictionResultTable);
     }
 
     private void setStyle() {

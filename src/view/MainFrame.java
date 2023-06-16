@@ -22,6 +22,7 @@ public class MainFrame extends BaseFrame {
     private JButton inputButton;
     private JButton calculateButton;
     private JButton resultButton;
+    private JScrollPane productionScrollPane;
     private JTable productionTable;
     private JButton deleteButton;
 
@@ -43,8 +44,6 @@ public class MainFrame extends BaseFrame {
         } else {
             productionTable.setModel(new ProductionTableModel(new ArrayList<>()));
         }
-
-        setTableStyle(productionTable);
     }
 
     private void recalculate() throws SQLException {
@@ -60,8 +59,8 @@ public class MainFrame extends BaseFrame {
     }
 
     private void initTable() {
-        productionTable.setModel(new ProductionTableModel(productions));
-        productionTable.setAutoCreateRowSorter(true);
+        productionTable = createTable(new ProductionTableModel(productions));
+        productionScrollPane.getViewport().add(productionTable);
     }
 
     private void setStyle() {
@@ -73,11 +72,14 @@ public class MainFrame extends BaseFrame {
         closeButton.setOpaque(false);
         closeButton.setContentAreaFilled(false);
         closeButton.setBorderPainted(false);
+
+        setTableStyle(productionTable);
     }
 
     private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {
         Image img = icon.getImage();
         Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);
+
         return new ImageIcon(resizedImage);
     }
 
@@ -85,7 +87,7 @@ public class MainFrame extends BaseFrame {
         closeButton.addActionListener(e -> System.exit(0));
         inputButton.addActionListener(e -> {
             if (productions.size() < 12) {
-                new ProductionFrame(productions);
+                new InputFrame(productions);
                 dispose();
             } else {
                 popupMessage("Production data for all available months has been inputted.");

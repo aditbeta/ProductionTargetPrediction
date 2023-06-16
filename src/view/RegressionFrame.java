@@ -4,10 +4,7 @@ import entity.Prediction;
 import entity.Production;
 import repository.PredictionRepository;
 import repository.ProductionRepository;
-import view.table.PredictionTableModel;
-import view.table.ProductionTableModel;
-import view.table.RegressionTableModel;
-import view.table.TotalTableModel;
+import view.table.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -47,13 +44,15 @@ public class RegressionFrame extends BaseFrame {
     private void initTable() throws SQLException {
         List<Production> productions = ProductionRepository.readAll();
 
-        productionTable.setModel(new ProductionTableModel(productions));
-        productionTable.setAutoCreateRowSorter(true);
+        productionTable = createTable(new ProductionTableModel(productions));
+        productionScrollPane.getViewport().add(productionTable);
 
-        predictionTable.setModel(new PredictionTableModel(productions));
-        predictionTable.setAutoCreateRowSorter(true);
+        predictionTable = createTable(new PredictionTableModel(productions));
+        predictionScrollPane.getViewport().add(predictionTable);
 
         Prediction prediction = PredictionRepository.read();
+
+        assert prediction != null;
 
         totalTable.setModel(new TotalTableModel(prediction));
         totalTable.setAutoCreateRowSorter(true);

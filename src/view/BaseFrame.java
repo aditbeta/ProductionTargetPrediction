@@ -2,7 +2,8 @@ package view;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.sql.SQLException;
 
@@ -31,22 +32,6 @@ public class BaseFrame extends JFrame {
         table.setRowHeight(30);
         table.setShowVerticalLines(false);
         table.setShowHorizontalLines(false);
-
-        table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                if (isSelected) {
-                    c.setBackground(BLACK);
-                    c.setForeground(WHITE);
-                } else {
-                    c.setBackground(row % 2 == 0 ? LIGHT_GRAY : WHITE);
-                    c.setForeground(BLACK);
-                }
-
-                return c;
-            }
-        });
     }
 
     public void setLabelPadding(JLabel label) {
@@ -65,5 +50,22 @@ public class BaseFrame extends JFrame {
     public void popupMessage(String message) {
         dispose();
         new PopupFrame(message);
+    }
+
+    public JTable createTable(TableModel model) {
+        return new JTable(model) {
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int col) {
+                Component c = super.prepareRenderer(renderer, row, col);
+                if (isRowSelected(row)) {
+                    c.setBackground(BLACK);
+                    c.setForeground(WHITE);
+                } else {
+                    c.setBackground(row % 2 == 0 ? LIGHT_GRAY : WHITE);
+                    c.setForeground(BLACK);
+                }
+                return c;
+            }
+        };
     }
 }

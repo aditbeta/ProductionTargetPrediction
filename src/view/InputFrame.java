@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ProductionFrame extends BaseFrame {
+public class InputFrame extends BaseFrame {
 
     private JPanel productionInputPanel;
     private JLabel titleLabel;
@@ -26,7 +26,7 @@ public class ProductionFrame extends BaseFrame {
 
     private List<Production> productions;
 
-    public ProductionFrame(List<Production> productionList) {
+    public InputFrame(List<Production> productionList) {
         setActionListener();
         setData(productionList);
         setStyle();

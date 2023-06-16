@@ -41,4 +41,9 @@ public class ProductionTableModel extends AbstractTableModel {
             default: return "-";
         }
     }
+
+    @Override
+    public Class getColumnClass(int columnIndex) {
+        return (columnIndex == 0) ? String.class : Integer.class;
+    }
 }
