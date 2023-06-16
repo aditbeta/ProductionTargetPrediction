@@ -66,7 +66,7 @@ public class MainFrame extends BaseFrame {
 
     private void setStyle() {
         ImageIcon logo = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("icon/logo.png")));
-        titleLabel.setIcon(resizeIcon(logo, getWidth() - 250, 100));
+        titleLabel.setIcon(resizeIcon(logo, getWidth() - 250, 105));
 
         ImageIcon icon = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("icon/close.png")));
         closeButton.setIcon(resizeIcon(icon, closeButton.getWidth(), closeButton.getHeight()));
