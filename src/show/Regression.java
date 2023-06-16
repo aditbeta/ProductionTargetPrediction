@@ -3,6 +3,7 @@ package show;
 import entity.Prediction;
 import entity.Production;
 import repository.PredictionRepository;
+import repository.ProductionObject;
 import repository.ProductionRepository;
 import show.table.PredictionTableModel;
 import show.table.ProductionTableModel;
@@ -32,15 +33,19 @@ public class Regression extends BaseFrame {
     private JTable regressionTable;
     private JButton backButton;
 
-    public Regression() throws SQLException {
+    public Regression() {
         setActionListener();
         setData();
         setStyle();
         setPanel(regressionPanel, "Regression Calculation", 1000, 800);
     }
 
-    private void setData() throws SQLException {
-        initTable();
+    private void setData() {
+        try {
+            initTable();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     private void initTable() throws SQLException {

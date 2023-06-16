@@ -20,16 +20,20 @@ public class PredictionResult extends BaseFrame {
     private JTable predictionResultTable;
     private JButton backButton;
 
-    public PredictionResult() throws SQLException {
+    public PredictionResult() {
         setActionListener();
         setData();
         setStyle();
         setPanel(predictionResultPanel, "Prediction Result", 700, 300);
     }
 
-    private void setData() throws SQLException {
-        insertEquation();
-        initTable();
+    private void setData() {
+        try {
+            insertEquation();
+            initTable();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     private void insertEquation() throws SQLException {

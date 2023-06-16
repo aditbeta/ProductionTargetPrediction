@@ -89,11 +89,7 @@ public class MainFrame extends BaseFrame {
             dispose();
         });
         calculateButton.addActionListener(e -> {
-            try {
-                new Regression();
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
+            new Regression();
             dispose();
         });
         deleteButton.addActionListener(e -> {
@@ -101,11 +97,7 @@ public class MainFrame extends BaseFrame {
             dispose();
         });
         resultButton.addActionListener(e -> {
-            try {
-                new PredictionResult();
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
+            new PredictionResult();
             dispose();
         });
     }
