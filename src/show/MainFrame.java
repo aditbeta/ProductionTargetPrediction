@@ -2,6 +2,7 @@ package show;
 
 import entity.Prediction;
 import entity.Production;
+import org.apache.commons.collections4.CollectionUtils;
 import repository.PredictionRepository;
 import repository.ProductionRepository;
 import show.table.ProductionTableModel;
@@ -89,16 +90,33 @@ public class MainFrame extends BaseFrame {
             dispose();
         });
         calculateButton.addActionListener(e -> {
-            new Regression();
-            dispose();
-        });
-        deleteButton.addActionListener(e -> {
-            new DeleteInput(productions);
-            dispose();
+            if (valid()) {
+                new Regression();
+                dispose();
+            }
         });
         resultButton.addActionListener(e -> {
-            new PredictionResult();
-            dispose();
+            if (valid()) {
+                new PredictionResult();
+                dispose();
+            }
         });
+        deleteButton.addActionListener(e -> {
+            if (valid()) {
+                new DeleteInput(productions);
+                dispose();
+            }
+        });
+    }
+
+    private boolean valid() {
+        if (CollectionUtils.isEmpty(productions)) {
+            new Popup("Input production data first.");
+            dispose();
+
+            return false;
+        }
+
+        return true;
     }
 }
