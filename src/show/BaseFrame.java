@@ -1,6 +1,7 @@
 package show;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.SQLException;
 
 public class BaseFrame extends JFrame {
@@ -12,6 +13,14 @@ public class BaseFrame extends JFrame {
         setSize(width, height);
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    public void setTableStyle(JTable table) {
+        table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
+        table.getTableHeader().setOpaque(false);
+        table.getTableHeader().setBackground(new Color(32, 136, 203));
+        table.getTableHeader().setForeground(new Color(255, 255, 255));
+        table.setRowHeight(30);
     }
 
     public void backToMain() {

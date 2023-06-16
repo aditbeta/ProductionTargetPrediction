@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends BaseFrame {
     private JButton inputButton;
     private JButton calculateButton;
     private JButton resultButton;
@@ -72,11 +72,7 @@ public class MainFrame extends JFrame {
             productionTable.setModel(new ProductionTableModel(new ArrayList<>()));
         }
 
-        productionTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
-        productionTable.getTableHeader().setOpaque(false);
-        productionTable.getTableHeader().setBackground(new Color(32, 136, 203));
-        productionTable.getTableHeader().setForeground(new Color(255, 255, 255));
-        productionTable.setRowHeight(30);
+        setTableStyle(productionTable);
     }
 
     public void buttonListener() {

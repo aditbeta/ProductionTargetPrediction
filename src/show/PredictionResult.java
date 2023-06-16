@@ -55,11 +55,7 @@ public class PredictionResult extends BaseFrame {
         titleLabel.setBorder(new EmptyBorder(0,0,10,0));
         equationResult.setBorder(new EmptyBorder(10,10,10,10));
 
-        predictionResultTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
-        predictionResultTable.getTableHeader().setOpaque(false);
-        predictionResultTable.getTableHeader().setBackground(new Color(32, 136, 203));
-        predictionResultTable.getTableHeader().setForeground(new Color(255, 255, 255));
-        predictionResultTable.setRowHeight(30);
+        setTableStyle(predictionResultTable);
     }
 
     private void setActionListener() {
