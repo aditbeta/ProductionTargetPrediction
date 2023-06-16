@@ -4,56 +4,55 @@ import entity.Production;
 import repository.ProductionRepository;
 
 import javax.swing.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import javax.swing.border.EmptyBorder;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeleteInput extends JFrame {
+public class DeleteInput extends BaseFrame {
     private JPanel deletePanel;
-    private JLabel monthDeleteLabel;
+    private JLabel titleLabel;
     private JTextField monthDeleteField;
-    private JButton monthDeleteButton;
+    private JButton deleteButton;
     private JComboBox monthDropdown;
+    private JButton backButton;
 
     private List<Production> productions;
 
-    public DeleteInput(List<Production> productionsList) {
-        productions = productionsList;
+    public DeleteInput(List<Production> productionList) {
+        setActionListener();
+        setData(productionList);
+        setStyle();
+        setPanel(deletePanel, "Delete Production Input by Month", 300, 150);
+    }
 
-        setContentPane(deletePanel);
-        setTitle("Delete Production Input by Month");
-        setSize(300,100);
-        setLocationRelativeTo(null);
-        setVisible(true);
+    private void setData(List<Production> productionList) {
+        productions = productionList;
 
         setDropdownValue();
-
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                try {
-                    new MainFrame();
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        });
-
-        monthDeleteButton.addActionListener(e -> {
-            try {
-                ProductionRepository.delete(monthDropdown.getSelectedItem().toString());
-                dispose();
-                new MainFrame();
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
     }
 
     private void setDropdownValue() {
         List<String> monthsOption = new ArrayList<>();
         productions.forEach(data -> monthsOption.add(data.getMonth()));
         monthDropdown.setModel(new DefaultComboBoxModel<>(monthsOption.toArray(new String[0])));
+    }
+
+    private void setStyle() {
+        titleLabel.setBorder(new EmptyBorder(0,0,10,0));
+    }
+
+    private void setActionListener() {
+        deleteButton.addActionListener(e -> {
+            try {
+                ProductionRepository.delete(monthDropdown.getSelectedItem().toString());
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            backToMain();
+        });
+        backButton.addActionListener(e -> {
+            backToMain();
+        });
     }
 }
