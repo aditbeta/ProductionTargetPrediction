@@ -2,7 +2,6 @@ package view;
 
 import entity.Prediction;
 import entity.Production;
-import org.apache.commons.collections4.CollectionUtils;
 import repository.PredictionRepository;
 import repository.ProductionRepository;
 import view.table.ProductionTableModel;
@@ -38,7 +37,7 @@ public class MainFrame extends BaseFrame {
     private void setData() throws SQLException {
         productions = ProductionRepository.readAll();
 
-        if (!CollectionUtils.isEmpty(productions)) {
+        if (!emptyProductions()) {
             recalculate();
             initTable();
         } else {
@@ -114,12 +113,16 @@ public class MainFrame extends BaseFrame {
     }
 
     private boolean valid() {
-        if (CollectionUtils.isEmpty(productions)) {
+        if (emptyProductions()) {
             popupMessage("Please input production data first.");
 
             return false;
         }
 
         return true;
+    }
+
+    private boolean emptyProductions() {
+        return productions == null || productions.size() == 0;
     }
 }
