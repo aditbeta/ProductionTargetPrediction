@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ProductionInput extends JFrame {
+public class ProductionInput extends BaseFrame {
 
     private JPanel productionInputPanel;
     private JLabel titleLabel;
@@ -32,7 +32,7 @@ public class ProductionInput extends JFrame {
 
         setData(productionList);
 
-        setPanel();
+        setPanel(productionInputPanel, "Production Data Form", 350, 400);
     }
 
     private void setData(List<Production> productionList) {
@@ -44,15 +44,6 @@ public class ProductionInput extends JFrame {
         List<String> months = new ArrayList<>(List.of("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"));
         productions.forEach(data -> months.remove(data.getMonth()));
         monthField.setModel(new DefaultComboBoxModel<>(months.toArray(new String[0])));
-    }
-
-    private void setPanel() {
-        setUndecorated(true);
-        setContentPane(productionInputPanel);
-        setTitle("Production Input Form");
-        setSize(350,400);
-        setLocationRelativeTo(null);
-        setVisible(true);
     }
 
     private void setStyle() {
@@ -81,14 +72,5 @@ public class ProductionInput extends JFrame {
         cancelButton.addActionListener(e -> {
             backToMain();
         });
-    }
-
-    private void backToMain() {
-        dispose();
-        try {
-            new MainFrame();
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
     }
 }

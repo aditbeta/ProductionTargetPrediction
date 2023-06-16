@@ -9,6 +9,7 @@ import show.table.ProductionTableModel;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,7 +46,9 @@ public class MainFrame extends JFrame {
 
         productions = ProductionRepository.readAll();
 
-        recalculate();
+        if (productions != null && productions.size() > 0) {
+            recalculate();
+        }
         initTable();
     }
 
@@ -62,8 +65,13 @@ public class MainFrame extends JFrame {
     }
 
     public void initTable() {
-        productionTable.setModel(new ProductionTableModel(productions));
-        productionTable.setAutoCreateRowSorter(true);
+        if (productions != null && productions.size() > 0) {
+            productionTable.setModel(new ProductionTableModel(productions));
+            productionTable.setAutoCreateRowSorter(true);
+        } else {
+            productionTable.setModel(new ProductionTableModel(new ArrayList<>()));
+        }
+
         productionTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
         productionTable.getTableHeader().setOpaque(false);
         productionTable.getTableHeader().setBackground(new Color(32, 136, 203));

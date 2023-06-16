@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeleteInput extends JFrame {
+public class DeleteInput extends BaseFrame {
     private JPanel deletePanel;
     private JLabel titleLabel;
     private JTextField monthDeleteField;
@@ -25,7 +25,7 @@ public class DeleteInput extends JFrame {
 
         setData(productionList);
 
-        setPanel();
+        setPanel(deletePanel, "Delete Production Input by Month", 300, 150);
     }
 
     private void setData(List<Production> productionList) {
@@ -38,15 +38,6 @@ public class DeleteInput extends JFrame {
         List<String> monthsOption = new ArrayList<>();
         productions.forEach(data -> monthsOption.add(data.getMonth()));
         monthDropdown.setModel(new DefaultComboBoxModel<>(monthsOption.toArray(new String[0])));
-    }
-
-    private void setPanel() {
-        setUndecorated(true);
-        setContentPane(deletePanel);
-        setTitle("Delete Production Input by Month");
-        setSize(300,150);
-        setLocationRelativeTo(null);
-        setVisible(true);
     }
 
     private void setStyle() {
@@ -65,14 +56,5 @@ public class DeleteInput extends JFrame {
         cancelButton.addActionListener(e -> {
             backToMain();
         });
-    }
-
-    private void backToMain() {
-        dispose();
-        try {
-            new MainFrame();
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
     }
 }

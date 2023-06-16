@@ -12,7 +12,7 @@ import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
 
-public class PredictionResult extends JFrame {
+public class PredictionResult extends BaseFrame {
 
     private JScrollPane predictionResultPane;
     private JLabel titleLabel;
@@ -27,7 +27,7 @@ public class PredictionResult extends JFrame {
 
         setData();
 
-        setPanel();
+        setPanel(predictionResultPanel, "Prediction Result", 700, 300);
     }
 
     private void setData() throws SQLException {
@@ -51,15 +51,6 @@ public class PredictionResult extends JFrame {
         predictionResultTable.setAutoCreateRowSorter(true);
     }
 
-    private void setPanel() {
-        setUndecorated(true);
-        setContentPane(predictionResultPanel);
-        setTitle("Regression Result");
-        setSize(700,300);
-        setLocationRelativeTo(null);
-        setVisible(true);
-    }
-
     private void setStyle() {
         titleLabel.setBorder(new EmptyBorder(0,0,10,0));
         equationResult.setBorder(new EmptyBorder(10,10,10,10));
@@ -75,14 +66,5 @@ public class PredictionResult extends JFrame {
         backButton.addActionListener(e -> {
             backToMain();
         });
-    }
-
-    private void backToMain() {
-        dispose();
-        try {
-            new MainFrame();
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
     }
 }
