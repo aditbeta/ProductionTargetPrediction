@@ -55,14 +55,20 @@ public class ProductionInput extends BaseFrame {
     private void setActionListener() {
         submitButton.addActionListener(e -> {
             String month = Objects.requireNonNull(monthField.getSelectedItem()).toString();
-            Double sell = Double.parseDouble(sellField.getText());
-            Double order = Double.parseDouble(orderField.getText());
-            Double target = Double.parseDouble(targetField.getText());
-
+            String sell = sellField.getText();
+            String order = orderField.getText();
+            String target = targetField.getText();
             try {
-                ProductionRepository.insert(new ProductionObject(month, sell, order, target));
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+                try {
+                    ProductionRepository.insert(new ProductionObject(
+                            month, Double.parseDouble(sell), Double.parseDouble(order), Double.parseDouble(target)));
+                } catch (SQLException se) {
+                    throw new RuntimeException(se);
+                }
+            } catch (NumberFormatException ne) {
+                dispose();
+                popupMessage("Invalid input. All input should be numeric");
+                return;
             }
 
             backToMain();

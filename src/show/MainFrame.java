@@ -111,8 +111,7 @@ public class MainFrame extends BaseFrame {
 
     private boolean valid() {
         if (CollectionUtils.isEmpty(productions)) {
-            new Popup("Input production data first.");
-            dispose();
+            popupMessage("Input production data first.");
 
             return false;
         }

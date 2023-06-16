@@ -37,4 +37,9 @@ public class BaseFrame extends JFrame {
             throw new RuntimeException(ex);
         }
     }
+
+    public void popupMessage(String message) {
+        new Popup(message);
+        dispose();
+    }
 }
