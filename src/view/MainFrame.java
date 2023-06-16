@@ -113,7 +113,7 @@ public class MainFrame extends BaseFrame {
 
     private boolean valid() {
         if (CollectionUtils.isEmpty(productions)) {
-            popupMessage("Input production data first.");
+            popupMessage("Please input production data first.");
 
             return false;
         }

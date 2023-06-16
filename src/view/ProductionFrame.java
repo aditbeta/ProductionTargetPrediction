@@ -67,7 +67,7 @@ public class ProductionFrame extends BaseFrame {
                 }
             } catch (NumberFormatException ne) {
                 dispose();
-                popupMessage("Invalid input. All input should be numeric");
+                popupMessage("Invalid input. All input should be numeric.");
                 return;
             }
 
