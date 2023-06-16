@@ -53,6 +53,16 @@ _Below is an example of how you can instruct your audience on installing and set
 
 
 
+## Screenshots
+
+[![Main Frame][screenshots/mainFrame.png]]
+[![Input Frame][screenshots/inputFrame.png]]
+[![Delete Frame][screenshots/deleteFrame.png]]
+[![Regression Frame][screenshots/regressionFrame.png]]
+[![Prediction Frame][screenshots/predictionFrame.png]]
+
+
+
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [product-screenshot]: images/screenshot.png
