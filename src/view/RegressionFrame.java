@@ -78,8 +78,8 @@ public class RegressionFrame extends BaseFrame {
         table.setRowHeight(30);
 
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-        renderer.setBackground(new Color(232, 57, 95));
-        renderer.setForeground(new Color(255, 255, 255));
+        renderer.setBackground(RED);
+        renderer.setForeground(Color.WHITE);
 
         table.getColumnModel().getColumn(0).setCellRenderer(renderer);
     }
