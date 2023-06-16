@@ -1,4 +1,4 @@
-package show.table;
+package view.table;
 
 import entity.Prediction;
 import entity.Production;

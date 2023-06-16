@@ -1,4 +1,4 @@
-package show;
+package view;
 
 import entity.Production;
 import repository.ProductionObject;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ProductionInput extends BaseFrame {
+public class ProductionFrame extends BaseFrame {
 
     private JPanel productionInputPanel;
     private JLabel titleLabel;
@@ -26,7 +26,7 @@ public class ProductionInput extends BaseFrame {
 
     private List<Production> productions;
 
-    public ProductionInput(List<Production> productionList) {
+    public ProductionFrame(List<Production> productionList) {
         setActionListener();
         setData(productionList);
         setStyle();

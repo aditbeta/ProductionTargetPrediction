@@ -1,8 +1,6 @@
-package service;
+package entity;
 
-import entity.Prediction;
-
-public class helper {
+public class BaseEntity {
 
     public static double round(double n) {
         String[] splitter = String.valueOf(n).split("\\.");
@@ -17,10 +15,10 @@ public class helper {
         return isNegative ? (n * -1) : n;
     }
 
-    public static Prediction calculatePrediction(Prediction prediction,
-                                                 double a1, double b1, double c1, double d1,
-                                                 double a2, double b2, double c2, double d2,
-                                                 double a3, double b3, double c3, double d3) {
+    public static void calculatePrediction(Prediction prediction,
+                                           double a1, double b1, double c1, double d1,
+                                           double a2, double b2, double c2, double d2,
+                                           double a3, double b3, double c3, double d3) {
         double delta = solveUseCramer(
                 a1, b1, c1,
                 a2, b2, c2,
@@ -43,8 +41,6 @@ public class helper {
                 a2, b2, d2,
                 a3, b3, d3) / delta, 9);
         prediction.setB2(z);
-
-        return prediction;
     }
 
     private static double solveUseCramer(double a1, double b1, double c1,

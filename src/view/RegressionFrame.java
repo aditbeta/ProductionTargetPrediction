@@ -1,25 +1,21 @@
-package show;
+package view;
 
 import entity.Prediction;
 import entity.Production;
 import repository.PredictionRepository;
-import repository.ProductionObject;
 import repository.ProductionRepository;
-import show.table.PredictionTableModel;
-import show.table.ProductionTableModel;
-import show.table.RegressionTableModel;
-import show.table.TotalTableModel;
+import view.table.PredictionTableModel;
+import view.table.ProductionTableModel;
+import view.table.RegressionTableModel;
+import view.table.TotalTableModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.List;
 
-public class Regression extends BaseFrame {
+public class RegressionFrame extends BaseFrame {
 
     private JPanel regressionPanel;
     private JLabel titleLabel;
@@ -33,7 +29,7 @@ public class Regression extends BaseFrame {
     private JTable regressionTable;
     private JButton backButton;
 
-    public Regression() {
+    public RegressionFrame() {
         setActionListener();
         setData();
         setStyle();

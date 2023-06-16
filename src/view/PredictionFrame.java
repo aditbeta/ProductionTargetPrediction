@@ -1,17 +1,17 @@
-package show;
+package view;
 
 import entity.Prediction;
 import entity.Production;
 import repository.PredictionRepository;
 import repository.ProductionRepository;
-import show.table.*;
+import view.table.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.sql.SQLException;
 import java.util.List;
 
-public class PredictionResult extends BaseFrame {
+public class PredictionFrame extends BaseFrame {
 
     private JPanel predictionResultPanel;
     private JLabel titleLabel;
@@ -20,7 +20,7 @@ public class PredictionResult extends BaseFrame {
     private JTable predictionResultTable;
     private JButton backButton;
 
-    public PredictionResult() {
+    public PredictionFrame() {
         setActionListener();
         setData();
         setStyle();

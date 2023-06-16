@@ -12,9 +12,7 @@ public class BaseRepository {
         String password = "password";
 
         try  {
-            Connection connection = DriverManager.getConnection(url, username, password);
-
-            return connection;
+            return DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
             throw new IllegalStateException("Cannot connect the database!", e);
         }

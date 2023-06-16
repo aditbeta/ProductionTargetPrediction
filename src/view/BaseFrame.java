@@ -1,4 +1,4 @@
-package show;
+package view;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -39,7 +39,7 @@ public class BaseFrame extends JFrame {
     }
 
     public void popupMessage(String message) {
-        new Popup(message);
         dispose();
+        new PopupFrame(message);
     }
 }

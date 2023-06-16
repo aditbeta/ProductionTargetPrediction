@@ -1,11 +1,11 @@
-package show;
+package view;
 
 import entity.Prediction;
 import entity.Production;
 import org.apache.commons.collections4.CollectionUtils;
 import repository.PredictionRepository;
 import repository.ProductionRepository;
-import show.table.ProductionTableModel;
+import view.table.ProductionTableModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,8 +49,8 @@ public class MainFrame extends BaseFrame {
 
     private void recalculate() throws SQLException {
         Prediction prediction = new Prediction();
-        prediction.calculateTotal(productions);
-        prediction.calculatePrediction();
+        prediction.setTotal(productions);
+        prediction.setPrediction(productions);
 
         if (PredictionRepository.read() != null) {
             PredictionRepository.update(prediction);
@@ -84,24 +84,28 @@ public class MainFrame extends BaseFrame {
     private void setActionListener() {
         closeButton.addActionListener(e -> System.exit(0));
         inputButton.addActionListener(e -> {
-            new ProductionInput(productions);
-            dispose();
+            if (productions.size() < 12) {
+                new ProductionFrame(productions);
+                dispose();
+            } else {
+                popupMessage("Production data for all available months has been inputted.");
+            }
         });
         calculateButton.addActionListener(e -> {
             if (valid()) {
-                new Regression();
+                new RegressionFrame();
                 dispose();
             }
         });
         resultButton.addActionListener(e -> {
             if (valid()) {
-                new PredictionResult();
+                new PredictionFrame();
                 dispose();
             }
         });
         deleteButton.addActionListener(e -> {
             if (valid()) {
-                new DeleteInput(productions);
+                new DeleteFrame(productions);
                 dispose();
             }
         });
